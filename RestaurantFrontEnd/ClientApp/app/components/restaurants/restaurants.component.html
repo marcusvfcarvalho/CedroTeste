@@ -1,0 +1,49 @@
+﻿<div style="margin: 30px">
+    <h3 class="page-header">RESTAURANTES</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">Filtros</div>
+        <div class="panel-body">
+            <form>
+                <div class="form-group">
+                    <label for="restaurantName">Nome:</label>
+                    <input [value]="searchString" (input)="searchString = $event.target.value" type="text" class="form-control" id="txtName">
+                </div>
+                <button type="button" class="btn btn-primary" (click)="searchRestaurants()">
+                    <span class="glyphicon glyphicon-search"></span> Pesquisar
+                </button>
+                <button [routerLink]="['/restaurants/create']" type="button" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span> Cadastrar novo restaurante
+                </button>
+
+            </form>
+
+            <div id="data" style="margin: 30px">
+            </div>
+        </div>
+    </div>
+  </div>  
+  
+    <div id="data" style="margin: 30px">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-sm-1"></th>
+                      <th class="col-sm-4">Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let restaurant of restaurants">
+                    <td>
+                        <button type="button" class="btn btn-danger" (click)="remove(restaurant.Id)">
+                            <span class="glyphicon glyphicon-minus"></span> 
+                        </button>
+                        <button type="button" class="btn btn-success" (click) = "edit(restaurant.Id)">
+                            <span class="glyphicon glyphicon-pencil"></span> 
+                        </button>
+                    </td>
+                    <td>{{restaurant.Name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+

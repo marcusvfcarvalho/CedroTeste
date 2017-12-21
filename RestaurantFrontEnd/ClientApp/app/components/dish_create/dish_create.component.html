@@ -1,0 +1,39 @@
+﻿<div style="margin: 30px">
+    <h3 class="page-header">CADASTRO DE PRATOS</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">Dados</div>
+        <div class="panel-body">
+            <form>
+                <div class="form-group">
+                    <label>Restaurante</label>
+
+                    <select [(ngModel)] ="selectedRestaurant" class="form-control" name="restaurant">
+                        <option *ngFor="let restaurant of restaurants" [ngValue]="restaurant">{{restaurant.Name}}</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="txtName">Prato</label>
+                    <input [value]="dish" (input)="dish = $event.target.value" type="text" class="form-control" id="txtName">
+                    <small id="emailHelp" class="form-text text-muted">{{errorMessage}}</small>
+                </div>
+                <div class="form-group">
+                    <label for="price">Preço</label>
+                    <input [value]="price" (input)="price = $event.target.value" type="number" class="form-control" id="txtPrice">
+                </div>
+
+                <button  [routerLink]="['/dishes']" type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-repeat"></span> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" (click)="saveDish()">
+                    <span class="glyphicon glyphicon-save"></span> Salvar
+                </button>
+
+            </form>
+
+            <div id="data" style="margin: 30px">
+            </div>
+        </div>
+    </div>
+</div>  

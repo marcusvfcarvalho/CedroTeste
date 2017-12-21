@@ -1,0 +1,36 @@
+﻿<div style="margin: 30px">
+    <h3 class="page-header">CADASTRO DE PRATOS</h3>
+
+
+    <button type="button" class="btn btn-success" (click)="createNew()">
+        <span class="glyphicon glyphicon-plus"></span> Cadastrar novo prato
+    </button>
+    <div id="data" style="margin: 30px">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-sm-2"></th>
+                    <th class="col-sm-4">Restaurante</th>
+                    <th class="col-sm-4">Prato</th>
+                    <th class="col-sm-2">Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dish of dishes">
+                    <td>
+                        <button type="button" class="btn btn-danger" (click)="remove(dish.Id)">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                        <button type="button" class="btn btn-success" (click)="edit(dish.Id)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </td>
+                    <td>{{dish.Restaurant.Name}}</td>
+                    <td>{{dish.Name}}</td>
+                    <td>{{dish.Price | currency:'BRL':true}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    

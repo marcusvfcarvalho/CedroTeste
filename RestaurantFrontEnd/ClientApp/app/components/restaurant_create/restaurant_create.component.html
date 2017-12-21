@@ -1,0 +1,25 @@
+﻿<div style="margin: 30px">
+    <h3 class="page-header">CADASTRO DE RESTAURANTES</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">Dados</div>
+        <div class="panel-body">
+            <form>
+                <div class="form-group">
+                    <label for="restaurantName">Nome do Restaurante:</label>
+                    <input [value]="restaurantName" (input)="restaurantName = $event.target.value" type="text" class="form-control" id="txtName">
+                    <small id="emailHelp" class="form-text text-muted">{{errorMessage}}</small>
+                </div>
+                <button [routerLink]="['/restaurants']" type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-repeat"></span> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" (click) = "saveRestaurant(restaurantName)">
+                    <span class="glyphicon glyphicon-save"></span> Salvar
+                </button>
+
+            </form>
+
+            <div id="data" style="margin: 30px">
+            </div>
+        </div>
+    </div>
+</div>  
