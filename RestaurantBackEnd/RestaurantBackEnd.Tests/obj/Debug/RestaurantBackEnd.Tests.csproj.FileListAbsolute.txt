@@ -38,3 +38,6 @@ C:\Users\user\source\repos\cedro\RestaurantBackEnd\RestaurantBackEnd.Tests\bin\D
 C:\Users\user\source\repos\cedro\RestaurantBackEnd\RestaurantBackEnd.Tests\bin\Debug\Castle.Core.xml
 C:\Users\user\source\repos\cedro\RestaurantBackEnd\RestaurantBackEnd.Tests\bin\Debug\Moq.pdb
 C:\Users\user\source\repos\cedro\RestaurantBackEnd\RestaurantBackEnd.Tests\bin\Debug\Moq.xml
+C:\Users\user\source\repos\cedro\RestaurantBackEnd\RestaurantBackEnd.Tests\bin\Debug\System.Web.Http.Cors.dll
+C:\Users\user\source\repos\cedro\RestaurantBackEnd\RestaurantBackEnd.Tests\bin\Debug\System.Web.Cors.dll
+C:\Users\user\source\repos\cedro\RestaurantBackEnd\RestaurantBackEnd.Tests\bin\Debug\System.Web.Http.Cors.xml

@@ -38,5 +38,14 @@ namespace RestaurantBackEnd.Models
                 .WillCascadeOnDelete(true);
         }
 
+        public void ChangeDish(Dish dish)
+        {
+            var dbDish = Dishes
+                .Include(x => x.Restaurant)
+                .Single(x => x.Id == dish.Id);
+
+            Entry(dbDish).CurrentValues.SetValues(dish);
+            dbDish.Restaurant = Restaurants.Find(dish.Restaurant.Id);
+        }
     }
 }

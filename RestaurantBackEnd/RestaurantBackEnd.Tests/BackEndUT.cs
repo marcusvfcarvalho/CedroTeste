@@ -9,6 +9,7 @@ using RestaurantBackEnd.Controllers;
 using System.Web.Http.Results;
 using System.Data.Entity.Infrastructure;
 using System.Xml.Linq;
+using System.Web.Http;
 
 namespace RestaurantBackEnd.Tests
 {
@@ -16,8 +17,9 @@ namespace RestaurantBackEnd.Tests
     public class BackEndUT
     {
 
-        RestaurantsController controller;
-        IQueryable<Restaurant> data; 
+        RestaurantsController restaurantController;
+        DishesController dishController;
+        IQueryable<Restaurant> data;
 
         private void SetupData()
         {
@@ -27,13 +29,13 @@ namespace RestaurantBackEnd.Tests
                 {
                     Id = 1,
                     Name = "Restaurante 1",
-                 
+
                 },
                 new Restaurant()
                 {
                     Id = 2,
                     Name = "Restaurante 2",
-                   
+
                 }
             }.AsQueryable();
 
@@ -42,6 +44,8 @@ namespace RestaurantBackEnd.Tests
             mockSet.As<IQueryable<Restaurant>>().Setup(m => m.Expression).Returns(data.Expression);
             mockSet.As<IQueryable<Restaurant>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Restaurant>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            mockSet.Setup(c => c.Find(It.IsAny<object[]>())).Returns((object[] id) => data.Where(r => r.Id == (int)id[0]).FirstOrDefault());
+
 
      
 
@@ -55,7 +59,8 @@ namespace RestaurantBackEnd.Tests
             
             
 
-            controller = new RestaurantsController(mockContext.Object);
+            restaurantController = new RestaurantsController(mockContext.Object);
+            dishController = new DishesController(mockContext.Object);
         }
 
         [TestMethod]
@@ -65,10 +70,10 @@ namespace RestaurantBackEnd.Tests
             SetupData();
 
             // Act
-            var restaurants = controller.GetRestaurants();
+            var restaurants = (DbSet<Restaurant>)restaurantController.GetRestaurants();
 
             // Assert
-            // Assert.AreEqual(2, restaurants.AsQueryable().cou);
+            Assert.AreEqual(2, restaurants.ToArray().Count());
 
         }
 
@@ -85,7 +90,7 @@ namespace RestaurantBackEnd.Tests
             };
 
             // Act
-            CreatedAtRouteNegotiatedContentResult<Restaurant> result = (CreatedAtRouteNegotiatedContentResult<Restaurant>) controller.PostRestaurant(restaurant);
+            CreatedAtRouteNegotiatedContentResult<Restaurant> result = (CreatedAtRouteNegotiatedContentResult<Restaurant>) restaurantController.PostRestaurant(restaurant);
 
             // Assert
             Assert.AreEqual(restaurant.Id, result.Content.Id);
@@ -95,7 +100,7 @@ namespace RestaurantBackEnd.Tests
         }
 
         [TestMethod]
-        public void ModifyRestaurant_RestaurantIsCreated()
+        public void ModifyRestaurant_RestaurantIsChanged()
         {
             // Arrange
             SetupData();
@@ -108,13 +113,12 @@ namespace RestaurantBackEnd.Tests
 
 
             // Act
-            controller.PutRestaurant(restaurant.Id, restaurant);
+            restaurantController.PutRestaurant(restaurant.Id, restaurant);
             var changedRestaurant = data.Where(x => x.Id == restaurant.Id).FirstOrDefault();
 
 
             // Assert
             Assert.AreEqual(restaurant.Name, changedRestaurant.Name);
-
 
         }
     }

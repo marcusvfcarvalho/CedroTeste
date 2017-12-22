@@ -16,7 +16,17 @@ namespace RestaurantBackEnd.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DishesController : ApiController
     {
-        private RestaurantBackEndContext db = new RestaurantBackEndContext();
+        private IRestaurantBackEndContext db = new RestaurantBackEndContext();
+
+        public DishesController()
+        {
+
+        }
+
+        public DishesController(IRestaurantBackEndContext context)
+        {
+            this.db = context;
+        }
 
         // GET: api/Dishes
         public IQueryable GetDishes()
@@ -74,13 +84,9 @@ namespace RestaurantBackEnd.Controllers
                 return BadRequest();
             }
 
-            var dbDish = db.Dishes
-                .Include(x => x.Restaurant)
-                .Single(x=> x.Id == dish.Id);
+            db.ChangeDish(dish);
 
-            db.Entry(dbDish).CurrentValues.SetValues(dish);
-            dbDish.Restaurant = db.Restaurants.Find(dish.Restaurant.Id);
-          
+         
             try
             {
                 db.SaveChanges();
